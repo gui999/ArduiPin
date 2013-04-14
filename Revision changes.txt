@@ -1,0 +1,27 @@
+0.2a -> 0.2.1a changes:
+1) Implemented the Serial.readBytesUntil() function with a message timeout to clean the readMessage function of the program.
+   It was kind of esotheric since the normal Serial.Read is not waiting for any delimiting byte and since the Arduino is somewhat
+   fast, the program could loop multiple times (and it was) before all the data of a message entered the serial buffer. I didn't 
+   really liked that in term of code clarity and integrity (having to put data in a global variable and check through loops if we 
+   finally get a message). Now the way the main loop works, first it look for inputs before reading the buffer for data. If there
+   is data in the buffer, it gives a fixed amount of time for the whole message to enter the buffer before timeout(and discarting 
+   the message).
+   
+   The timeout delay shouldn't slowdown the program (we're talking millisecs). Unfortunatly, since my build is at it's very begining,
+   there is no way for me to test the outputs right now (that's why it's still in alpha even it's the 3rd revision).
+   If the program does slowdown/lag/stutter later, I should consider a rollback.
+   
+2) The changes of the read function also removed all the message reseting functions since now a "new" message variable is created each
+   loop pass. Once again, it makes everything much clearer in the code.
+   
+
+0.1a -> 0.2a changes:
+1) Completly redid the program from scratch to implement the new features and making it less hardcoded and more future proof.
+2) Implemented the message/command based structure making it easy to add/remove commands if needed.
+3) Implemented the shiftOut command so the output can be used with shift registers.
+4) Implemented the analogWrite command so the PWM output can be used for.. PWM!
+5) Stated implementing analog inputs so they can be used for things like nudging and a plunger (still missing some code here since I have nothing analog to test yet).
+6) Added debuging prints to make it easier to.. debug!
+
+
+0.1a -> Initial version of the code

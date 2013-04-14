@@ -1,0 +1,42 @@
+1) Test everything (lol?). Okay.. I'm still at the very begining of my build, so I have nothing to test my code except for inputs (with 1 button).
+   So no real way right now to actually test output outside making sure the data is actually OK before writing to pins (so it SHOULD work).
+   But input seams to work really well..!! :D
+   
+2) Once I build my analog plunger, continue implementing analog read so VP understand what's going on. Maybe add a command so the Arduino would only read
+   the plunger input when needed.
+
+3) Maybe look if there is a good way to remove 100% of the hardcoding. Right now only the pin arrays (4) are hardcoded (besides the config consts) and
+   that need to be changed to suit the actual pin config used by the user (used by the user.. lol). So I'm looking at a solution like maybe generate 
+   those line of code from the C# config (and all config const at the same time) so the only thing the user would have to do is push the .INO file 
+   to his Arduino without having to modify it.
+   
+   An other solution I looked at was to just send the config data directly from the C# to the Arduino and let it config itself. For example, the C# knows 
+   which input pin to use so it could send the input pin array to the Arduino and the Arduino would initialize the pin based on that information. The
+   problem with this is that I would have to screw with dynamic array creation (things like malloc). I'm not sure wet if the Arduino is build for that..
+   and at the same time it would make the code way less clearer and if you look at my code, I really like to make things clear (too clear?).
+   
+4) Look to implement hardware interupts. 
+
+   Since the Arduino is doing 2 things at the same time, replacing both a keyboard controller like the IPac and a toy contoller
+   like the LedWiz, there could be some lag issue because it can only handle one operation at a time. The way things works right now, the Arduino has a main
+   loop in which it first read the inputs for changes in the states (that's why it's the first operation since we want to give priority to the button, mainly
+   the flippers). After that (and only after), it looks in it's Serial Buffer for messages from the PC. If there's a message, it process it.. but only 1 at
+   the time before looping once again in the main loop. So for each 1 message, it return to see if an input has changed.
+   
+   Normaly the Arduino should have enough power, but like Maniac said in VPforum after doing some tests, on really busy tables you can have an event (toy, led, 
+   etc) going off every 60ms. That's a lot of outputs in a short amount of time. 
+   
+   Like I said, the last thing we want to lag is the flippers. Even if a led turn on 100ms to late in a high load of events, I don't think it would be that bad. 
+   So outputs can lag, not the flippers. Interupts look like a good solution since it would actualy gives hardware control over the Arduino. When an interupt is 
+   detected, the Arduino stops the main program for the attached function to run. So we could have both flippers attached to an interupt and each time the button
+   are pressed, we make sure to send the inputs in priority to the PC.
+   
+5) Look for the possibility to implement message priority.
+
+   In the same optic to prevent lag, maybe we could look at setting a priority param for messages. Some message could have a priority with a maximum delay 
+   before being launched or even having messages that could be dropper if too much is going on at the same time. Could work like the debouncing for inputs.
+   Past a certain delay, the message is launch or dropped depending if it as a high or low priority. So again like the inputs, it would require the messages
+   to have an array to push the messages (like a stack) for future processing.
+   
+   This is really just an idea for "FUTURE" lag problems that "MAY" occurs. There is no way to know for sure as long as the program can't fully be tested with
+   high loads.
