@@ -1,3 +1,19 @@
+DISCLAIMER: 
+BE AWARE THAT THIS SOFTWARE IS MOSTLY UNTESTED IN REAL PINBALL CAB APPLICATION!
+
+Since my pinball project is still at it's very begining, I have no way right now
+to test the outputs other than making sure the data sent is OK in a console mode.
+I'm still waiting and gathering all the hardware needed for my cab. Only the inputs
+got tested with Visual Pinball (but it works nice! :D).
+
+FOR NOW, YOU SHOULD CONSIDER THIS BIT OF CODE MORE LIKE A PROOF OF CONCEPT.
+
+And without the PC interface code, this is pretty much useless and I won't release it
+for now since it's actually a HUGE mess bad hardcoded testing mode button all over the
+place piece of software.
+
+
+WHAT IS ARDUIPIN:
 Turns the Arduino into an interface (I/O) for Virtual Pinball Cabinets in hope to 
 replace the LedWiz for controling the differents "toys" (ouputs) and the leds. 
 As for inputs, it will/should replace a keyboard controller like the Ipac, a 
