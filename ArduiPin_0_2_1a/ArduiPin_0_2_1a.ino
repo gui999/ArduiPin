@@ -6,9 +6,9 @@ Description:  PLEASE READ THE README.txt
 */
 
 // *** I/O CONFIG ****  CHANGE THIS TO REPRESENT PIN USED BY YOUR ARDUNINO
-byte _inputDigitalPin[]  = {52,53,54,55,56,57,58};           //The array of digital input pin used (buttons).
+byte _inputDigitalPin[]  = {52,50,48,46,44,42,40};           //The array of digital input pin used (buttons).
 byte _inputAnalogPin[]   = {6,7};                            //The array of analog input pin used (plunger, nudging, etc).
-byte _outputDigitalPin[] = {45,46,47,48,49,50,51};           //The array of digital output pin used.
+byte _outputDigitalPin[] = {51,49,47,45};           //The array of digital output pin used.
 byte _outputAnalogPin[]  = {9,10};                           //The array of analog output pin used (PWM, RGB, etc).
 
 
@@ -71,7 +71,7 @@ void setup(){
   // Start the serial connection and wait for the handshake
   Serial.begin(BAUD_RATE);
   Serial.setTimeout(MSG_TIMEOUT);
-  waitHandShake();
+  //waitHandShake();
 }
 
 //Function that initialize the inputs/buttons used.
